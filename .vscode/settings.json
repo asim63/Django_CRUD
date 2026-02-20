@@ -1,8 +1,10 @@
 {
+  "python.pythonPath": "${workspaceFolder}/venv/Scripts/python.exe",
   "emmet.includeLanguages": {
     "django-html": "html"
   },
   "[html][django-html]": {
     "editor.defaultFormatter": "monosans.djlint"
-  }
+  },
+  "editor.formatOnSave": true
 }
