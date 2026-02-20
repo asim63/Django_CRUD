@@ -16,6 +16,14 @@
   </head>
   <body>
     <section class="section-center">
+          <!-- Messages -->
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
 <form method="POST"
     action="{% if edit_item %}{% url 'grocery:update' edit_item.id %}{% else %}{% url 'grocery:add' %}{% endif %}">
   {% csrf_token %}
