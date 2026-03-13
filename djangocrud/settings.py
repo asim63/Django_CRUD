@@ -40,6 +40,10 @@ def _parse_bool(value, default=False):
 DEBUG = _parse_bool(config('DEBUG', default='False'))
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=Csv())
+CSRF_TRUSTED_ORIGINS = [
+    origin for origin in config('CSRF_TRUSTED_ORIGINS', default='', cast=Csv())
+    if origin
+]
 
 # Application definition
 
