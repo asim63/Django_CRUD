@@ -22,9 +22,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+def _parse_bool(value, default=False):
+    if value is None:
+        return default
+    if isinstance(value, bool):
+        return value
+    value_str = str(value).strip().lower()
+    if value_str in ('1', 'true', 't', 'yes', 'y', 'on'):
+        return True
+    if value_str in ('0', 'false', 'f', 'no', 'n', 'off', ''):
+        return False
+    if value_str in ('release', 'prod', 'production'):
+        return False
+    return default
+
+DEBUG = _parse_bool(config('DEBUG', default='False'))
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=Csv())
 
 # Application definition
 
